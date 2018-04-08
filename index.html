@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="jquery.numscroller-1.0.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/flaticon.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/w3.css">
+    <title>Hotel Management Site</title>
+    <link rel="icon" href="images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <section class="hero-section">
+        <header class="hero-header">
+            <div class="hero-logo">
+                <h2 class="hero-title"><a href="#">LUXE</a></h2>
+            </div>
+            <div class="hero-nav">
+                <ul class="nav-list">
+                    <li><a href="#">Home</a></li>
+                    <li class="dis-dd"><a href="#">Hotel<i class="icon-arrow-down"></i></a>
+                        <ul class="dd-nav">
+                            <li><a href="#">Luxe Hotel</a></li>
+                            <li><a href="#">Deluxe Hotel</a></li>
+                            <li class="dis-dd-2"><a href="#">King Hotel<i class="icon-arrow-right"></i></a>
+                                <ul class="dd-nav-2">
+                                    <li><a href="#">Build</a></li>
+                                    <li><a href="#">Work</a></li>
+                                    <li><a href="#">Light</a></li>
+                                    <li><a href="#">Relic</a></li>
+                                    <li><a href="#">Display</a></li>
+                                    <li><a href="#">Sprint</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Five Star Hotel</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </header>
+        <section class="booking">
+            <div class="booking-section">
+                <div class="flexed custom-select" style="width:200px;">
+                    <select>
+                        <option value="0">Select Hotel</option>
+                        <option value="1">Luxe Hotel</option>
+                        <option value="2">Deluxe Hotel</option>
+                        <option value="3">Five Star Hotel</option>
+                    </select>
+                </div>
+                <script>
+                    var x, i, j, selElmnt, a, b, c;
+                    /*look for any elements with the class "custom-select":*/
+                    x = document.getElementsByClassName("custom-select");
+                    for (i = 0; i < x.length; i++) {
+                      selElmnt = x[i].getElementsByTagName("select")[0];
+                      /*for each element, create a new DIV that will act as the selected item:*/
+                      a = document.createElement("DIV");
+                      a.setAttribute("class", "select-selected");
+                      a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+                      x[i].appendChild(a);
+                      /*for each element, create a new DIV that will contain the option list:*/
+                      b = document.createElement("DIV");
+                      b.setAttribute("class", "select-items select-hide");
+                      for (j = 1; j < selElmnt.length; j++) {
+                        /*for each option in the original select element,
+                        create a new DIV that will act as an option item:*/
+                        c = document.createElement("DIV");
+                        c.innerHTML = selElmnt.options[j].innerHTML;
+                        c.addEventListener("click", function(e) {
+                            /*when an item is clicked, update the original select box,
+                            and the selected item:*/
+                            var i, s, h;
+                            s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                            h = this.parentNode.previousSibling;
+                            for (i = 0; i < s.length; i++) {
+                              if (s.options[i].innerHTML == this.innerHTML) {
+                                s.selectedIndex = i;
+                                h.innerHTML = this.innerHTML;
+                                break;
+                              }
+                            }
+                            h.click();
+                        });
+                        b.appendChild(c);
+                      }
+                      x[i].appendChild(b);
+                      a.addEventListener("click", function(e) {
+                          /*when the select box is clicked, close any other select boxes,
+                          and open/close the current select box:*/
+                          e.stopPropagation();
+                          closeAllSelect(this);
+                          this.nextSibling.classList.toggle("select-hide");
+                          this.classList.toggle("select-arrow-active");
+                        });
+                    }
+                    function closeAllSelect(elmnt) {
+                      /*a function that will close all select boxes in the document,
+                      except the current select box:*/
+                      var x, y, i, arrNo = [];
+                      x = document.getElementsByClassName("select-items");
+                      y = document.getElementsByClassName("select-selected");
+                      for (i = 0; i < y.length; i++) {
+                        if (elmnt == y[i]) {
+                          arrNo.push(i)
+                        } else {
+                          y[i].classList.remove("select-arrow-active");
+                        }
+                      }
+                      for (i = 0; i < x.length; i++) {
+                        if (arrNo.indexOf(i)) {
+                          x[i].classList.add("select-hide");
+                        }
+                      }
+                    }
+                    /*if the user clicks anywhere outside the select box,
+                    then close all select boxes:*/
+                    document.addEventListener("click", closeAllSelect);
+                </script>
+                <div class="flexed checkin">
+                    <label for="checkin_date">Check In Date</label>
+                    <input type="date" id="checkin_date" name="checkin_date" placeholder="Check In Date" />
+                </div>
+                <div class="flexed checkout">
+                    <div class="required field">
+                        <label for="checkout_date">Check Out Date</label>
+                        <input type="date" id="checkout_date" name="checkout_date" placeholder="Check Out Date" />
+                    </div>
+                </div>
+                <div class="flexed check-avlbilty">
+                    <div class="avlbilty-link">
+                        <a href="#">Check Availability</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="carousel">
+            <div class="slideshow-container">
+
+                <div class="mySlides slide1 fade">
+                    <div class="slider-content">
+                        <div class="content-center">
+                            <p class="hotel-title">
+                                <span>Bora Hotel</span>
+                            </p>
+                            <h1 class="hotel-line">Reserve Room for Family Vacation</h1>
+                            <div class="hotel-link"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mySlides slide2 fade">
+                    <div class="slider-content">
+                        <div class="content-center">
+                            <p class="hotel-title">
+                                <span>Deluxe Hotel</span>
+                            </p>
+                            <h1 class="hotel-line">Make Your Vacation Comfortable</h1>
+                            <div class="hotel-link"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mySlides slide3 fade">
+                    <div class="slider-content">
+                        <div class="content-center">
+                            <p class="hotel-title">
+                                <span>Luxe Hotel</span>
+                            </p>
+                            <h1 class="hotel-line">A best Place To Enjoy Your Life</h1>
+                            <div class="hotel-link"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                </div>
+                
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+                <script>
+            var slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                var i;
+                var slides = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("dot");
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) {
+                    slideIndex = 1
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+                setTimeout(showSlides, 5000); // Change image every 5 seconds
+            }
+        </script>
+            </div>
+            <br>
+        </div>
+        
+    </section>
+    <section class="animated-text">
+        <div class="text-box">
+            <div class="has-width">
+                <span class='numscroller' data-min='1' data-max='20356' data-delay='5' data-increment='30'>20356</span>
+                <span class="break"></span>
+                <div class="has-padding-ano">
+                    <span>USER ACCESS</span>
+                </div>
+            </div>
+            <div class="has-width">
+                <span class='numscroller' data-min='1' data-max='15501' data-delay='5' data-increment='30'>15501</span>
+                <span class="break"></span>
+                <div class="has-padding-ano">
+                    <span>HOTELS</span>
+                </div>
+            </div>
+            <div class="has-width">
+                <span class='numscroller' data-min='1' data-max='8200' data-delay='5' data-increment='15'>8200</span>
+                <span class="break"></span>
+                <div class="has-padding-ano">
+                    <span>TRANSACTIONS</span>
+                </div>
+            </div>
+            <div class="has-width">
+                <span class='numscroller' data-min='1' data-max='8763' data-delay='5' data-increment='15'>8763</span>
+                <span class="break"></span>
+                <div class="has-padding-ano">
+                    <span>RATING &amp; REVIEW</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="featured">
+        <div class="has-align">
+            <p><span>FEATURED HOTELS</span></p>
+            <div class="deluxe-hotel">
+                <div class="has-eq-width deluxe-hotel-img">
+                    <div class="hover-card">
+                        <p><span>FOR AS LOW AS</span></p>
+                        <p><span>$122/night</span></p>
+                    </div>
+                </div>
+                <div class="has-eq-width about-deluxe-hotel">
+                    <p class="hotel-name-del"><span>Deluxe Hotel</span></p>
+                    <p class="hotel-intro-del">Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed. Vivamus augue enim, consectetur ac interdum a, pulvinar ac massa. Nullam malesuada congue</p>
+                    <div class="book-now-link"><a class="book-now-del-link" href="#">BOOK NOW<i class="icon-arrow-right-ano"></i></a></div>
+                </div>
+            </div>
+            <div class="two-hotels">
+                <div class="hotels">
+                    <div class="has-eq-width-ano about-hotels">
+                        <p class="hotels-name"><span>Hotel Bora</span></p>
+                        <p class="hotels-intro">Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed.</p>
+                        <div class="hotels-book-now-link"><a class="hotel-book-now-link" href="#">BOOK NOW<i class="icon-arrow-right-ano2"></i></a></div>
+                    </div>
+                    <div class="has-eq-width-ano hotels-img hotels-img1">
+                        <div class="hover-card-ano">
+                            <p><span>FOR AS LOW AS</span></p>
+                            <p><span>$97/night</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hotels">
+                    <div class="has-eq-width-ano about-hotels">
+                        <p class="hotels-name"><span>D’Morvie</span></p>
+                        <p class="hotels-intro">Pellentesque habitant morbi tristique senectus et netus ett mauada fames ac turpis egestas. Etiam euismod tempor leo, in suscipit urna condimentum sed.</p>
+                        <div class="hotels-book-now-link"><a class="hotel-book-now-link" href="#">BOOK NOW<i class="icon-arrow-right-ano2"></i></a></div>
+                    </div>
+                    <div class="has-eq-width-ano hotels-img hotels-img2">
+                        <div class="hover-card-ano">
+                            <p><span>FOR AS LOW AS</span></p>
+                            <p><span>$89/night</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="tab-nav">
+        <p class="facilities">HOTEL FACILITIES</p>
+        <div class="w3-container">
+
+            <div class="w3-row">
+                <a href="javascript:void(0)" onclick="openCity(event, 'Restaurant');">
+                    <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding nav-tab">
+                        <p class="nav-tab-ico">
+                            <i class="nav-tab-ico-img flaticon-restaurant-interface-symbol-of-fork-and-knife-couple"></i>
+                        </p>
+                        <p class="nav-tab-title">RESTAURANT</p>
+                    </div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Bar');">
+                    <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding nav-tab"><p class="nav-tab-ico">
+                            <i class="nav-tab-ico-img flaticon-cup"></i>
+                        </p>
+                        <p class="nav-tab-title">BAR</p></div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Pickup');">
+                    <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding nav-tab"><p class="nav-tab-ico">
+                            <i class="nav-tab-ico-img flaticon-car-black-side-silhouette"></i>
+                        </p>
+                        <p class="nav-tab-title">PICK-UP</p></div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Spa');">
+                    <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding nav-tab"><p class="nav-tab-ico">
+                            <i class="nav-tab-ico-img flaticon-massage-spa-body-treatment"></i>
+                        </p>
+                        <p class="nav-tab-title">SPA</p></div>
+                </a>
+                <a href="javascript:void(0)" onclick="openCity(event, 'Gym');">
+                    <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding nav-tab"><p class="nav-tab-ico">
+                            <i class="nav-tab-ico-img flaticon-people"></i>
+                        </p>
+                        <p id="nav-tab-title" class="nav-tab-title">GYM</p></div>
+                </a>
+            </div>
+
+            <div id="Restaurant" class="w3-container city" style="">
+                <div class="facility-box">
+                    <div class="tab-eq-width facility-box-img"><img class="tab-facility-img" src="images/tab_img_1.jpg" alt="Restaurent View"></div>
+                    <div class="tab-eq-width about-facility">
+                        <p class="facility-class"><span>WORLD CLASS</span></p>
+                        <p class="facility-name"><span>Restaurant</span></p>
+                        <p class="facility-intro intro-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
+                        <p class="facility-intro more-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
+                        <p class="timing-title">SERVICE HOURS</p>
+                        <p class="timing-hrs">7:30 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Bar" class="w3-container city" style="display:none">
+                <div class="facility-box">
+                    <div class="tab-eq-width facility-box-img"><img class="tab-facility-img" src="images/tab_img_2.jpg" alt="Restaurent View"></div>
+                    <div class="tab-eq-width about-facility">
+                        <p class="facility-class"><span>WORLD CLASS</span></p>
+                        <p class="facility-name"><span>Bar</span></p>
+                        <p class="facility-intro intro-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
+                        <p class="facility-intro more-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
+                        <p class="timing-title">SERVICE HOURS</p>
+                        <p class="timing-hrs">7:30 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Pickup" class="w3-container city" style="display:none">
+                <div class="facility-box">
+                    <div class="tab-eq-width facility-box-img"><img class="tab-facility-img" src="images/tab_img_3.jpg" alt="Restaurent View"></div>
+                    <div class="tab-eq-width about-facility">
+                        <p class="facility-class"><span>WORLD CLASS</span></p>
+                        <p class="facility-name"><span>Pick Up</span></p>
+                        <p class="facility-intro intro-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
+                        <p class="facility-intro more-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
+                        <p class="timing-title">SERVICE HOURS</p>
+                        <p class="timing-hrs">7:30 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Spa" class="w3-container city" style="display:none">
+                <div class="facility-box">
+                    <div class="tab-eq-width facility-box-img"><img class="tab-facility-img" src="images/tab_img_5.jpg" alt="Restaurent View"></div>
+                    <div class="tab-eq-width about-facility">
+                        <p class="facility-class"><span>WORLD CLASS</span></p>
+                        <p class="facility-name"><span>SPA</span></p>
+                        <p class="facility-intro intro-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
+                        <p class="facility-intro more-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
+                        <p class="timing-title">SERVICE HOURS</p>
+                        <p class="timing-hrs">7:30 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Gym" class="w3-container city" style="display:none">
+                <div class="facility-box">
+                    <div class="tab-eq-width facility-box-img"><img class="tab-facility-img" src="images/tab_img_6.jpg" alt="Restaurent View"></div>
+                    <div class="tab-eq-width about-facility">
+                        <p class="facility-class"><span>WORLD CLASS</span></p>
+                        <p class="facility-name"><span>GYM</span></p>
+                        <p class="facility-intro intro-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias officia perferendis modi impedit, rem quasi veritatis. Consectetur obcaecati incidunt, quae rerum, accusamus sapiente fuga vero at. Quia, labore, reprehenderit illum dolorem quae facilis reiciendis quas similique totam sequi ducimus temporibus ex nemo, omnis perferendis earum fugit impedit molestias animi vitae.</p>
+                        <p class="facility-intro more-about-facility">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam neque blanditiis eveniet nesciunt, beatae similique doloribus, ex impedit rem officiis placeat dignissimos molestias temporibus, in! Minima quod, consequatur neque aliquam.</p>
+                        <p class="timing-title">SERVICE HOURS</p>
+                        <p class="timing-hrs">7:30 AM - 8:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <script>
+            function openCity(evt, cityName) {
+              var i, x, tablinks;
+              x = document.getElementsByClassName("city");
+              for (i = 0; i < x.length; i++) {
+                 x[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablink");
+              for (i = 0; i < x.length; i++) {
+                 tablinks[i].className = tablinks[i].className.replace(" w3-border-red", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.firstElementChild.className += " w3-border-red";
+            }
+        </script>
+    </section>    
+    <section class="reviews">
+        <p class="reviews-title">Happy Customers</p>
+        <div class="reviews-grid">
+            <div class="review-box">
+                <div class="review-section"><p>“If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much”
+</p></div>
+                <div class="reviewe-name">John Doe</div>
+            </div>
+            <div class="review-box">
+                <div class="review-section"><p>“Me and my wife had a delightful weekend get away here, the staff were so friendly and attentive. Highly Recommended”</p></div>
+                <div class="reviewe-name">Rob Smith</div>
+            </div>
+            <div class="review-box">
+                <div class="review-section"><p>“If you’re looking for a top quality hotel look no further. We were upgraded free of charge to the Premium Suite, thanks so much”</p></div>
+                <div class="reviewe-name">Jane Wiz</div>
+            </div>
+        </div>
+    </section>
+    <section class="blog-link">
+        <p class="blog-title">OUR BLOG</p>
+        <div class="blog-grid">
+            <div class="blog-box">
+                <div class="blog-thumb-section blog-img-1">
+                    <p class="date"><span class="date1">28<br> SEP</span></p>
+                </div>
+                <div class="blog-name">Most Expensive Hotel</div>
+            </div>
+            <div class="blog-box">
+                <div class="blog-thumb-section blog-img-2">
+                    <p class="date"><span class="date1">09<br> AUG</span></p>
+                </div>
+                <div class="blog-name">1st Anniversary of Luxe Hotel</div>
+            </div>
+            <div class="blog-box">
+                <div class="blog-thumb-section blog-img-3">
+                
+                    <p class="date"><span class="date1">19<br> NOV</span></p>
+                </div>
+                <div class="blog-name">Discover New Adventure</div>
+            </div>
+        </div>
+    </section>
+    <footer class="hero-footer">
+        <div class="footer-box">
+            <div class="footer-boxes">
+                <p class="footer-about">
+                    &copy; Domain.com<br>All Rights Reserved<br>Designed by <a href="github.com/sahildhingra221">Sahil Dhingra</a><br>Demo Images: Flaticons and Luxe
+                </p>
+            </div>
+            <div class="footer-boxes">
+                <p class="ul-title">Company</p>
+                <ul class="footer-ul">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Customer Care</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-boxes">
+                <p class="ul-title">Our Facilities</p>
+                <ul class="footer-ul">
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="#">Bars</a></li>
+                    <li><a href="#">Pick-up</a></li>
+                    <li><a href="#">Swimming Pool</a></li>
+                    <li><a href="#">Spa</a></li>
+                    <li><a href="#">Gym</a></li>
+                </ul>
+            </div>
+            <div class="footer-boxes">
+                <p class="ul-title">Subscribe</p>
+                <p class="subscribe-line">Drop your Email to get our all latest Updates and Offers.</p>
+                <div class="form">
+                <input type="email" placeholder="Email Adresss">
+                <input type="submit" value="Fire">
+                </div>
+            </div>
+            <div class="footer-boxes">
+                <p class="ul-title has-margin">
+                    Join Us on:
+                </p>
+                <ul class="social-links">
+                    <li><a href="#"><i class="footer-ico flaticon-twitter-logo-button"></i></a></li>
+                    <li><a href="#"><i class="footer-ico flaticon-facebook-logo-button"></i></a></li>
+                    <li><a href="#"><i class="footer-ico flaticon-instagram-logo"></i></a></li>
+                    <li><a href="#"><i class="footer-ico flaticon-linkedin-button"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
